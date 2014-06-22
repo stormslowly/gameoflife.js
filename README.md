@@ -10,5 +10,13 @@ The Game of Life by JavaScript a.k.a 康威生命游戏
 
 super easy!
 
-clone this repo , open the `index.html` with your web browser.
+```
+$ git clone https://github.com/stormslowly/gameoflife.js.git
+$ cd gameoflife.js
+$ bower install
+```
+then `index.html` with your web browser.
 
+### live demo
+
+<http://stormslowly.github.io/javascript/gameoflife/2014/06/22/game-of-life-in-javascript.html>
