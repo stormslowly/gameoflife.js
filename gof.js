@@ -1,4 +1,4 @@
-/* global Crafty,console*/
+/* global Crafty*/
 'use strict';
 
 function Cell(map,x,y,size,alive){
@@ -9,7 +9,7 @@ function Cell(map,x,y,size,alive){
   self.y = y;
   self.life = alive;
   self.nextLife = false;
-  self.entity = Crafty.e('2D, DOM, Color').attr({
+  self.entity = Crafty.e('2D, Canvas, Color').attr({
     x: self.x*size,
     y: self.y*size,
     w: size,
@@ -19,20 +19,15 @@ function Cell(map,x,y,size,alive){
 }
 
 Cell.prototype.update = function (){
-  this.life = this.nextLife;
-};
-
-
-Cell.prototype.draw = function (){
   var self = this;
   self.entity.color(self.life?'#000':'#fff');
+  this.life = this.nextLife;
+
 };
 
 Cell.prototype.nextRound = function(){
   var self = this;
   var n = self.map.getNeighbors(self);
-
-  console.log(self.life,n);
 
   if( self.life ){
     if(n===2||n===3 ){
@@ -65,11 +60,10 @@ function Map(mapSize,cellSize){
   Crafty.init(self.mapSize, self.mapSize, document.getElementById('game'));
   for(var row=0;row<n;row += 1){
     for(var col=0;col<n;col += 1){
-      // var r = Math.rand();
-      self.cells.push(new Cell(self,row,col,self.cellSize, false ));
+      var life  = Math.random()>0.5 ;
+      self.cells.push(new Cell(self,row,col,self.cellSize, life ));
     }
   }
-  console.log(self.cells);
 }
 
 var dirs =[
@@ -99,11 +93,9 @@ Map.prototype.getNeighbors = function (cell){
     return [dir[0]+x,dir[1]+y];
   })
   .filter(function(cor){
-
     return cor[0]>=0&&cor[1]>=0&&cor[0]<self.n&&cor[1]<self.n;
   })
   .reduce(function(prev,curCor){
-     console.log(prev,self.getCell(curCor[0],curCor[1]));
      return  prev + (self.getCell(curCor[0],curCor[1]).life?1:0);
   },0);
 
@@ -127,12 +119,6 @@ Map.prototype.nextRound = function (){
 
 };
 
-Map.prototype.draw = function(){
-  var self = this;
-  self.cells.forEach(function(cell){
-    cell.draw();
-  });
-};
 
 Map.prototype.life = function(x,y){
   var self = this;
@@ -140,21 +126,15 @@ Map.prototype.life = function(x,y){
   return self;
 };
 
-var map = new Map(120,10);
+var map = new Map(500,10);
 
-map.life(1,0);
-map.life(1,1);
-map.life(1,2);
-
-
-map.draw();
-
-setInterval(function(){
+var game = setInterval(function(){
   map.nextRound();
   map.update();
-  map.draw();
 }, 1000);
 
+function stop(){
+  clearInterval(game);
+}
 
-// map.opposite();
-// console.log('naribor', map.getNeighbors(1,1));
+

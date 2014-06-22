@@ -1,23 +1,23 @@
+<!DOCTYPE html>
 <html>
-
-<head>
-	<title>Game of Life by Javascript</title>
-	<style>
-	'#game'{
-		width:500px;
-		height: 500px;
-	}
-	</style>
-</head>
-
+	<head>
+	  <title>Game of Life by Javascript</title>
+	  <script type="text/javascript" src="bower_components/crafty/Crafty-0.6.2/dist/crafty-min.js"></script>
+		<style type="text/css">
+		  button {
+		  	float: left;
+		  }
+		  #game {
+		  	float:left;
+		  }
+		</style>
+	</head>
 <body>
   <div id="game"></div>
-  <script type="text/javascript" src="/bower_components/crafty/Crafty-0.6.2/dist/crafty-min.js"></script>
-  <script type="text/javascript" src="/gof.js">
+  <button onclick="stop()" >stop</button>
 
 
-
-  </script>
+  <script type="text/javascript" src="gof.js"></script>
 </body>
 
 </html>
