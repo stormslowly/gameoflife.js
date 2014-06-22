@@ -119,7 +119,6 @@ Map.prototype.nextRound = function (){
 
 };
 
-
 Map.prototype.life = function(x,y){
   var self = this;
   self.getCell(x,y).life = true;
