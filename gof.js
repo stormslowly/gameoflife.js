@@ -1,5 +1,5 @@
-/* global Crafty*/
 'use strict';
+/* global Crafty*/
 
 function Cell(map,x,y,size,alive){
   var self = this;
@@ -29,21 +29,16 @@ Cell.prototype.nextRound = function(){
   var self = this;
   var n = self.map.getNeighbors(self);
 
-  if( self.life ){
-    if(n===2||n===3 ){
-      self.nextLife = true;
-    }
-    else{
-      self.nextLife = false;
-    }
-  }else{
-    if(n===3){
-      self.nextLife = true;
-    }
+  if( n == 3){
+    self.nextLife = true;
+    return ;
+  }
+
+  if(n!==2){
+    self.nextLife = false;
   }
 
 };
-
 
 function Map(mapSize,cellSize){
   var self = this;
